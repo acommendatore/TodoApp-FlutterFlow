@@ -6,29 +6,28 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'tasks_model.dart';
-export 'tasks_model.dart';
+import 'completed_model.dart';
+export 'completed_model.dart';
 
-class TasksWidget extends StatefulWidget {
-  const TasksWidget({super.key});
+class CompletedWidget extends StatefulWidget {
+  const CompletedWidget({super.key});
 
-  static String routeName = 'tasks';
-  static String routePath = '/tasks';
+  static String routeName = 'Completed';
+  static String routePath = '/completed';
 
   @override
-  State<TasksWidget> createState() => _TasksWidgetState();
+  State<CompletedWidget> createState() => _CompletedWidgetState();
 }
 
-class _TasksWidgetState extends State<TasksWidget> {
-  late TasksModel _model;
+class _CompletedWidgetState extends State<CompletedWidget> {
+  late CompletedModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TasksModel());
+    _model = createModel(context, () => CompletedModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -42,8 +41,6 @@ class _TasksWidgetState extends State<TasksWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -101,7 +98,7 @@ class _TasksWidgetState extends State<TasksWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
                 child: Text(
-                  'Tasks',
+                  'Completed',
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
                         fontFamily: 'Inter',
                         letterSpacing: 0.0,
@@ -118,7 +115,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                         )
                         .where(
                           'completed',
-                          isEqualTo: false,
+                          isEqualTo: true,
                         ),
                   ),
                   builder: (context, snapshot) {
@@ -167,13 +164,13 @@ class _TasksWidgetState extends State<TasksWidget> {
                           },
                           child: TaskWidget(
                             key: Key(
-                                'Key7m8_${listViewIndex}_of_${listViewTasksRecordList.length}'),
+                                'Keymvg_${listViewIndex}_of_${listViewTasksRecordList.length}'),
                             taskText: listViewTasksRecord.title,
                             completed: listViewTasksRecord.completed,
                             checkAction: () async {
                               await listViewTasksRecord.reference
                                   .update(createTasksRecordData(
-                                completed: true,
+                                completed: false,
                               ));
                             },
                           ),
@@ -181,16 +178,6 @@ class _TasksWidgetState extends State<TasksWidget> {
                       },
                     );
                   },
-                ),
-              ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
-                child: Text(
-                  FFAppState().quote,
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Inter',
-                        letterSpacing: 0.0,
-                      ),
                 ),
               ),
             ].divide(SizedBox(height: 12.0)),

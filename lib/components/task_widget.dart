@@ -9,10 +9,12 @@ class TaskWidget extends StatefulWidget {
     super.key,
     required this.taskText,
     required this.completed,
+    required this.checkAction,
   });
 
   final String? taskText;
   final bool? completed;
+  final Future Function()? checkAction;
 
   @override
   State<TaskWidget> createState() => _TaskWidgetState();
@@ -45,7 +47,7 @@ class _TaskWidgetState extends State<TaskWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+      padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -57,13 +59,13 @@ class _TaskWidgetState extends State<TaskWidget> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(12.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
               Theme(
                 data: ThemeData(
-                  checkboxTheme: const CheckboxThemeData(
+                  checkboxTheme: CheckboxThemeData(
                     visualDensity: VisualDensity.compact,
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     shape: CircleBorder(),
@@ -74,6 +76,11 @@ class _TaskWidgetState extends State<TaskWidget> {
                   value: _model.checkboxValue ??= widget.completed!,
                   onChanged: (newValue) async {
                     safeSetState(() => _model.checkboxValue = newValue!);
+                    if (newValue!) {
+                      await widget.checkAction?.call();
+                    } else {
+                      await widget.checkAction?.call();
+                    }
                   },
                   side: BorderSide(
                     width: 2,
