@@ -36,6 +36,7 @@ class _LoginWidgetState extends State<LoginWidget>
       length: 2,
       initialIndex: 0,
     )..addListener(() => safeSetState(() {}));
+
     _model.signupEmailTextController ??= TextEditingController();
     _model.signupEmailFocusNode ??= FocusNode();
 
@@ -641,7 +642,7 @@ class _LoginWidgetState extends State<LoginWidget>
                 ),
                 Stack(
                   children: [
-                    if (_model.tabBarCurrentIndex == 1)
+                    if (_model.tabBarPreviousIndex == 1)
                       FFButtonWidget(
                         onPressed: () async {
                           Function() _navigate = () {};
@@ -708,7 +709,7 @@ class _LoginWidgetState extends State<LoginWidget>
                           borderRadius: BorderRadius.circular(24.0),
                         ),
                       ),
-                    if (_model.tabBarCurrentIndex == 0)
+                    if (_model.tabBarPreviousIndex == 0)
                       FFButtonWidget(
                         onPressed: () async {
                           if (_model.formKey.currentState == null ||
